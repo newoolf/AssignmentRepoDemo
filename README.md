@@ -1,1 +1,5 @@
-My groupmember is David 
+My groupmembers are:
+- XXXX
+- XXXX
+- XXXX
+- XXXX
