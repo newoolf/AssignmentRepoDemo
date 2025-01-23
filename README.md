@@ -1,8 +1,8 @@
 My groupmembers are:
 - Noah Walden
 - Kaden Brown
-- XXXX
-- XXXX
+- David Song
+- Chris Rivera
 - XXXX
 
 
