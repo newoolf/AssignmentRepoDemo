@@ -1,6 +1,6 @@
 My groupmembers are:
 - Noah Walden
-- XXXX
+- Kaden Brown
 - XXXX
 - XXXX
 - XXXX
