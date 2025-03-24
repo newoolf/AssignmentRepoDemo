@@ -1,4 +1,5 @@
 {
+  "typescript.tsdk": "node_modules/typescript/lib",
     "editor.bracketPairColorization.enabled": true,
     "editor.formatOnSave": true,
     "editor.guides.bracketPairs": "active",
