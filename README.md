@@ -3,7 +3,7 @@ My groupmembers are:
 - Kaden Brown
 - David Song
 - Chris Rivera
-- XXXX
+- Karan Patel
 
 
 ------------------ Fill in some information about your project under this ------------------
