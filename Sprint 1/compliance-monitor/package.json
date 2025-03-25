@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix"
+    "lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix",
+    "test": "jest"
   },
   "dependencies": {
     "@heroui/button": "2.2.16",
@@ -48,4 +49,5 @@
     "ts-jest": "^29.3.0",
     "typescript": "5.6.3"
   }
+  
 }
