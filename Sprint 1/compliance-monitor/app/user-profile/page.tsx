@@ -28,10 +28,10 @@ export default function userProfilePage() {
               URL.revokeObjectURL(url);
             };
             
-            JSONToFile(patient, 'testJsonFile');
+            
 
             // Update the state with the patient data
-            setPatientData(JSON.stringify(patient, replacer));
+            setPatientData(JSON.stringify(patient, ));
           });
         })
         .catch((error) => {
