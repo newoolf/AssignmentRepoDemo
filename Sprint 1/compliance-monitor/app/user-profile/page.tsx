@@ -5,6 +5,17 @@ import { writeFileSync } from 'fs';
 
 export default function userProfilePage() {
   const [patientData, setPatientData] = useState<string>("Patient data will be displayed here after login.");
+  const JSONToFile = (obj, filename) => {
+    const blob = new Blob([JSON.stringify(obj, null, 2)], {
+      type: 'application/json',
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${filename}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   useEffect(() => {
     // Dynamically load the FHIR client library
@@ -13,25 +24,12 @@ export default function userProfilePage() {
       FHIR.oauth2
         .ready()
         .then((client) => {
-          client.request("Patient").then((patient) => {
-            console.log("Patient data:", patient);
-            
-            const JSONToFile = (obj, filename) => {
-              const blob = new Blob([JSON.stringify(obj, null, 2)], {
-                type: 'application/json',
-              });
-              const url = URL.createObjectURL(blob);
-              const a = document.createElement('a');
-              a.href = url;
-              a.download = `${filename}.json`;
-              a.click();
-              URL.revokeObjectURL(url);
-            };
-            
-            
-
+          //get patient medication 
+          client.request("MedicationRequest").then((medication) => {
+            console.log("Medication data:", medication);
+            JSONToFile(medication, "medication");
             // Update the state with the patient data
-            setPatientData(JSON.stringify(patient, ));
+            setPatientData(JSON.stringify(medication, ));
           });
         })
         .catch((error) => {
