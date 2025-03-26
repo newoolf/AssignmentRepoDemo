@@ -3,20 +3,12 @@ import { useEffect, useState } from "react";
 import { title } from "@/components/primitives";
 import { writeFileSync } from 'fs';
 
-export default function userProfilePage() {
-  const [patientData, setPatientData] = useState<string>("Patient data will be displayed here after login.");
-  const JSONToFile = (obj, filename) => {
-    const blob = new Blob([JSON.stringify(obj, null, 2)], {
-      type: 'application/json',
-    });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${filename}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
-  };
-
+export default function UserProfilePage() {
+  const [patientData, setPatientData] = useState<string>(
+    "Patient data will be displayed here after login."
+  );
+  const [medications, setMedications] = useState<string[]>([]);
+  
   useEffect(() => {
     // Dynamically load the FHIR client library
     const loadFHIRClient = async () => {
@@ -27,9 +19,19 @@ export default function userProfilePage() {
           //get patient medication 
           client.request("MedicationRequest").then((medication) => {
             console.log("Medication data:", medication);
-            JSONToFile(medication, "medication");
-            // Update the state with the patient data
-            setPatientData(JSON.stringify(medication, ));
+            // Update the screen with list of active medications
+            if (medication.entry) {
+              const activeMeds = medication.entry
+                .filter(
+                  (entry) =>
+                    entry.resource?.medicationCodeableConcept?.text &&
+                    entry.resource?.status === "active" //Only keep active medications
+                )
+                .map((entry) => entry.resource.medicationCodeableConcept.text);
+            
+              setMedications(activeMeds);
+              setPatientData(JSON.stringify(activeMeds, null, 2)); //Display only active medications
+            }
           });
         })
         .catch((error) => {
@@ -45,16 +47,16 @@ export default function userProfilePage() {
   return (
     <div>
       <p className={title()}>Login successful</p>
-      {/* Bind the patientData state to the <p> element */}
+      {/* Display patient data */}
       <pre id="patient-data">{patientData}</pre>
+
+      {/* Display medications as a list */}
+      <ul>
+        {medications.map((med, index) => (
+          <li key={index}>{med}</li>
+        ))}
+      </ul>
     </div>
   );
-
-  function replacer(key, value) {
-    // Filtering out properties
-    if (typeof value === "string") {
-      return undefined;
-    }
-    return value;
-  }
 }
+
