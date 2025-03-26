@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { title } from "@/components/primitives";
+import { writeFileSync } from 'fs';
 
 export default function userProfilePage() {
   const [patientData, setPatientData] = useState<string>("Patient data will be displayed here after login.");
@@ -14,15 +15,30 @@ export default function userProfilePage() {
         .then((client) => {
           client.request("Patient").then((patient) => {
             console.log("Patient data:", patient);
+            
+            const JSONToFile = (obj, filename) => {
+              const blob = new Blob([JSON.stringify(obj, null, 2)], {
+                type: 'application/json',
+              });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = `${filename}.json`;
+              a.click();
+              URL.revokeObjectURL(url);
+            };
+            
+            JSONToFile(patient, 'testJsonFile');
 
             // Update the state with the patient data
-            setPatientData(JSON.stringify(patient, null, 2));
+            setPatientData(JSON.stringify(patient, replacer));
           });
         })
         .catch((error) => {
           console.error("Error initializing FHIR client:", error);
           setPatientData("Error fetching patient data.");
         });
+        
     };
 
     loadFHIRClient();
@@ -35,4 +51,12 @@ export default function userProfilePage() {
       <pre id="patient-data">{patientData}</pre>
     </div>
   );
+
+  function replacer(key, value) {
+    // Filtering out properties
+    if (typeof value === "string") {
+      return undefined;
+    }
+    return value;
+  }
 }

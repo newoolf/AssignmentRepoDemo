@@ -14,7 +14,7 @@ export default function AuthPage() {
       FHIR.oauth2.authorize({ clientId: clientID, 
                               'scope': scope, 
                               'redirectUri': redirectUri,
-                              iss: "https://launch.smarthealthit.org/v/r4/sim/WzMsImQ0ZmIzYmJhLTczYTktNGI4Mi1hMGJjLTY3OGQ0N2YzODZiNCIsIiIsIkFVVE8iLDAsMCwwLCIiLCIiLCIiLCIiLCIiLCIiLCIiLDAsMSwiIl0/fhir"
+                              iss: "https://launch.smarthealthit.org/v/r4/sim/WzMsIiIsIiIsIkFVVE8iLDAsMCwwLCIiLCIiLCIiLCIiLCIiLCIiLCIiLDAsMSwiIl0/fhir"
                             });
     };
 
