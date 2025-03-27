@@ -1,13 +1,14 @@
 import '@/styles/globals.css'
-import { Metadata, Viewport } from 'next'
 import { Link } from '@heroui/link'
 import clsx from 'clsx'
+import { Metadata, Viewport } from 'next'
 
 import { Providers } from './providers'
 
-import { siteConfig } from '@/config/site'
 import { fontSans } from '@/config/fonts'
+import { siteConfig } from '@/config/site'
 import { FhirClientProvider } from '@Components/FHIR/FHIRClientProvider'
+import React from 'react'
 
 export const metadata: Metadata = {
 	title: {
