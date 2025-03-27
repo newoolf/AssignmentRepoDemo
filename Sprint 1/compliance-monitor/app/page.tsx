@@ -1,11 +1,6 @@
 import { Link } from '@heroui/link'
-import { Snippet } from '@heroui/snippet'
-import { Code } from '@heroui/code'
 import { button as buttonStyles } from '@heroui/theme'
-
-import { siteConfig } from '@/config/site'
-import { title, subtitle } from '@/components/primitives'
-import { GithubIcon } from '@/components/icons'
+import { title } from '@/components/primitives'
 
 export default function Home() {
 	return (
@@ -16,20 +11,18 @@ export default function Home() {
 
 			<div className="flex gap-3">
 				<Link
-					isExternal
 					className={buttonStyles({
 						color: 'primary',
 						radius: 'md',
 						variant: 'shadow'
 					})}
-					href={siteConfig.links.authroization}
+					href={'/login'}
 				>
 					Login
 				</Link>
 			</div>
 
-			<div className="mt-8">
-			</div>
+			<div className="mt-8"></div>
 		</section>
 	)
 }
