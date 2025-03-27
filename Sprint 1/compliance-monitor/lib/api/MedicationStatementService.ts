@@ -2,7 +2,10 @@
  * @fileoverview Implements business logic for handling FHIR MedicationStatement resources
  * @module MedicationStatementService
  */
-
+import { Medication } from 'fhir/r4'
+import Client from 'fhirclient/lib/Client'
+import { fhirclient } from 'fhirclient/lib/types'
+import { Bundle } from 'fhir/r4';
 /**TODO:
  * MedicationStatementService provides methods to interact with FHIR MedicationStatement resources
  *
@@ -39,4 +42,10 @@ export class MedicationStatementService {
 		// Fetch the medication
 		return {}
 	}
+
+	getMedication(client: Client): Promise<Bundle<Medication>> {
+			return client.request(`MedicationRequest`).catch((err) => {
+				throw new Error(`Failed to fetch MedicationRequest: ${err.message}`)
+			})
+		}
 }
