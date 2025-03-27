@@ -20,6 +20,8 @@
 			}
 		],
 		"paths": {
+			"@Components/*": ["./components/*"],
+			"@Lib/*": ["./lib/*"],
 			"@/*": ["./*"]
 		}
 	},
