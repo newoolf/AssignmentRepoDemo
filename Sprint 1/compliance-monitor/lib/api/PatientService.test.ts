@@ -48,7 +48,7 @@ describe('PatientService', () => {
 			} as fhirclient.FHIR.Patient)
 
 			// Act
-			const result = await patientService.getPatientById(mockClient as Client, '58691811-a925-45ff-9c66-7e4758eaa96f')
+			const result = await patientService.requestPatientById(mockClient as Client, '58691811-a925-45ff-9c66-7e4758eaa96f')
 
 			// Assert
 			expect(mockClient.request).toHaveBeenCalledWith('Patient/58691811-a925-45ff-9c66-7e4758eaa96f')
@@ -60,7 +60,7 @@ describe('PatientService', () => {
 			;(mockClient.request as jest.Mock).mockRejectedValue(new Error('Network error'))
 
 			// Act & Assert
-			await expect(patientService.getPatientById(mockClient as Client, '58691811-a925-45ff-9c66-7e4758eaa96f')).rejects.toThrow(
+			await expect(patientService.requestPatientById(mockClient as Client, '58691811-a925-45ff-9c66-7e4758eaa96f')).rejects.toThrow(
 				'Failed to fetch patient: Network error with id 58691811-a925-45ff-9c66-7e4758eaa96f'
 			)
 		})
@@ -84,7 +84,7 @@ describe('PatientService', () => {
 			// Act
 			const system = 'http://hl7.org/fhir/sid/us-ssn'
 			const value = '999-29-3778'
-			const result = await patientService.getPatientByIdentifier(mockClient as Client, system, value)
+			const result = await patientService.requestPatientByIdentifier(mockClient as Client, system, value)
 
 			// Assert
 			expect(mockClient.request).toHaveBeenCalledWith(`Patient?identifier=${encodeURIComponent(system)}|${encodeURIComponent(value)}`)
@@ -98,7 +98,7 @@ describe('PatientService', () => {
 			// Act & Assert
 			const system = 'http://hl7.org/fhir/sid/us-ssn'
 			const value = '999-29-3778'
-			await expect(patientService.getPatientByIdentifier(mockClient as Client, system, value)).rejects.toThrow(
+			await expect(patientService.requestPatientByIdentifier(mockClient as Client, system, value)).rejects.toThrow(
 				`Failed to fetch patient: Server unavailable with system ${system} and value ${value}`
 			)
 		})
