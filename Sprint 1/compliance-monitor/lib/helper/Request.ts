@@ -1,3 +1,4 @@
+// ???: Asses if needed
 export default class Request {
 	static async get(url: string): Promise<Response> {
 		return await fetch(url)
