@@ -1,0 +1,27 @@
+# Client API Library
+
+## Overview
+
+This directory contains a collection of service classes that provide a simple interface for interacting with our relevant FHIR resources. These classes abstract away the complexity of FHIR resource manipulation and HTTP communication details.
+
+## Purpose
+
+The Client API library serves to:
+
+1. Simplify CRUD operations on FHIR resources
+2. Provide domain-specific methods that make sense for our application
+3. Abstract away the technical details of the FHIR specification
+4. Maintain consistent error handling and data validation
+
+## Usage
+
+Each service class corresponds to a specific FHIR resource type (e.g., `MedicationStatementService`, `PatientService`) and provides methods tailored to our application's needs.
+
+Example:
+```typescript
+TBD
+```
+
+## Design Philosophy
+
+Rather than working directly with raw FHIR resources, these services provide a more intuitive API that aligns with our application's requirements while mantaining the types.
