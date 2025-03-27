@@ -2,6 +2,7 @@
 
 import { subtitle } from '@Components/primitives'
 import { Button } from '@heroui/button'
+import { Link } from '@heroui/link'
 import { Snippet } from '@heroui/snippet'
 import FHIR from 'fhirclient'
 import { useFhirClient } from '../FHIR/FHIRClientProvider'
@@ -16,7 +17,6 @@ export const SmartLogin = ({ redirectUri }: SmartLoginProps) => {
 	const { client, isLoading, error } = useFhirClient()
 
 	const handleLogin = () => {
-		console.log('Any 1')
 		FHIR.oauth2.authorize({
 			clientId: 'complication-monitor',
 			scope: 'openid fhirUser user/*.read',
@@ -55,7 +55,9 @@ export const SmartLogin = ({ redirectUri }: SmartLoginProps) => {
 		return (
 			<div className="flex flex-col gap-3">
 				<span className={subtitle()}>Already Logged in.</span>
-				<Button onPress={() => (window.location.href = redirectUri)}>Redirect</Button>
+				<Button as={Link} href={redirectUri}>
+					Redirect
+				</Button>
 			</div>
 		)
 	}
