@@ -28,7 +28,7 @@ export default function userProfilePage() {
 	return (
 		<div className="flex flex-col gap-4">
 			Patient Resource
-			<div>{patient}</div>
+			<div id="patient-data">{patient}</div>
 		</div>
 	)
 }
