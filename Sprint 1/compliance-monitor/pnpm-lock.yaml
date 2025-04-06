@@ -105,9 +105,6 @@ importers:
       autoprefixer:
         specifier: 10.4.19
         version: 10.4.19(postcss@8.4.49)
-      babel-jest:
-        specifier: ^29.7.0
-        version: 29.7.0(@babel/core@7.26.10)
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@20.5.7)
@@ -11634,7 +11631,8 @@ snapshots:
       p-locate: 5.0.0
     optional: true
 
-  lodash.debounce@4.0.8: {}
+  lodash.debounce@4.0.8:
+    optional: true
 
   lodash.memoize@4.1.2: {}
 
@@ -12386,8 +12384,6 @@ snapshots:
     optional: true
 
   react-is@18.3.1: {}
-
-  react-is@19.0.0: {}
 
   react-native-securerandom@0.1.1(react-native@0.78.1(@babel/core@7.26.10)(@babel/preset-env@7.26.9(@babel/core@7.26.10))(@types/react@18.3.3)(react@18.3.1)):
     dependencies:

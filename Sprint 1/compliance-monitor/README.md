@@ -17,6 +17,8 @@
 
 ### Install dependencies
 
+Only tested and developed with pnpm
+
 ```bash
 pnpm install
 ```
@@ -26,3 +28,11 @@ pnpm install
 ```bash
 pnpm run dev
 ```
+
+## Screenshots
+
+### Home
+![Screenshot of the application](./public/screen_1.png)
+
+### User page after login
+![Screenshot of the application](./public/screen_2.png)

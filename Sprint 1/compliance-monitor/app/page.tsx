@@ -1,6 +1,7 @@
-import { Link } from '@heroui/link'
-import { button as buttonStyles } from '@heroui/theme'
+'use client'
+
 import { title } from '@/components/primitives'
+import { SmartLogin } from '@Components/auth/SmartLogin'
 
 export default function Home() {
 	return (
@@ -10,19 +11,8 @@ export default function Home() {
 			</div>
 
 			<div className="flex gap-3">
-				<Link
-					className={buttonStyles({
-						color: 'primary',
-						radius: 'md',
-						variant: 'shadow'
-					})}
-					href={'/login'}
-				>
-					Login
-				</Link>
+				<SmartLogin redirectUri={'/user'} />
 			</div>
-
-			<div className="mt-8"></div>
 		</section>
 	)
 }

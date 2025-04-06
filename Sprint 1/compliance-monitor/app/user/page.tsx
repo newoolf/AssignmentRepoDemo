@@ -1,8 +1,8 @@
 'use client'
-import { useEffect, useState } from 'react'
 import { useFhirClient } from '@/components/FHIR/FHIRClientProvider'
 import { PatientService } from '@/lib/api/PatientService'
-
+import { title } from '@Components/primitives'
+import { useEffect, useState } from 'react'
 export default function userProfilePage() {
 	const { client, isLoading } = useFhirClient()
 	const [patient, setPatient] = useState<string>('Patient data will be displayed here after login.')
@@ -26,9 +26,9 @@ export default function userProfilePage() {
 	}
 
 	return (
-		<div className="flex flex-col gap-4">
-			Patient Resource
-			<div id="patient-data">{patient}</div>
-		</div>
+		<>
+			<span className={title()}>Patient Resource</span>
+			<pre className="text-left bg-foreground-100 p-4 rounded-md mt-4 whitespace-pre-wrap break-words">{patient}</pre>
+		</>
 	)
 }
