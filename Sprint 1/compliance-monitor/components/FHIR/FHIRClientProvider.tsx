@@ -13,7 +13,7 @@ interface FhirContextType {
 
 export const FhirClientContext = createContext<FhirContextType>({
 	client: null,
-	isLoading: true,
+	isLoading: false,
 	error: null,
 	initialize: async () => {}
 })
