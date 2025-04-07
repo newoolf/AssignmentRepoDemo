@@ -1,6 +1,8 @@
 'use client'
+import React from 'react'
 import { useEffect, useState } from 'react'
 import { useFhirClient } from '@/components/FHIR/FHIRClientProvider'
+import { PatientService } from '@/lib/api/PatientService'
 
 export default function userProfilePage() {
 	const { client, isLoading } = useFhirClient()
@@ -9,15 +11,15 @@ export default function userProfilePage() {
 	useEffect(() => {
 		// TODO: This logic belongs in PatientService(patientId).getPatient()
 
-		const fetchData = async () => {
-			const patient = await client?.request('Patient').catch((error) => {
-				console.error('Error initializing FHIR client:', error)
-				setPatient('Error fetching patient data.')
-			})
-			setPatient(JSON.stringify(patient, null, 2))
+		// Skip if client is not ready
+		if (!client) return
+
+		const fetchPatient = async () => {
+			const response = await new PatientService().requestPatient(client)
+			setPatient(JSON.stringify(response, null, 2))
 		}
 
-		fetchData()
+		fetchPatient()
 	}, [client])
 
 	if (isLoading) {
@@ -25,9 +27,9 @@ export default function userProfilePage() {
 	}
 
 	return (
-		<div>
+		<div className="flex flex-col gap-4">
 			Patient Resource
-			{patient}
+			<div>{patient}</div>
 		</div>
 	)
 }
