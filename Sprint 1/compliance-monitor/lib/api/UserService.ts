@@ -1,3 +1,0 @@
-/**
- * @see Medication-Statement
- */
