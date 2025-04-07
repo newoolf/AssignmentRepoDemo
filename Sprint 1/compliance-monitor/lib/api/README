@@ -19,7 +19,7 @@ Each service class corresponds to a specific FHIR resource type (e.g., `Medicati
 
 Example:
 ```typescript
-TDB
+TBD
 ```
 
 ## Design Philosophy
