@@ -50,6 +50,9 @@ importers:
       '@react-aria/visually-hidden':
         specifier: 3.8.20
         version: 3.8.20(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@types/fhir':
+        specifier: ^0.0.41
+        version: 0.0.41
       clsx:
         specifier: 2.1.1
         version: 2.1.1
@@ -2510,6 +2513,9 @@ packages:
 
   '@types/catbox@10.0.9':
     resolution: {integrity: sha512-4qXm1SmZurBMNFc/536+7gfbOlN43fWyoo4O0bdLqtpDK/cpuCYnEDou0Cl4naaMwuJ19rEwnuscR7tetGnTDA==}
+
+  '@types/fhir@0.0.41':
+    resolution: {integrity: sha512-MAQAFufNZBZ6V0F94Nhknmmh/E3iMXFK4n/L8RkSNjKtOJnvaAJERivNOj35VVx9VCQBJbE0BHSzikfBahoRhA==}
 
   '@types/graceful-fs@4.1.9':
     resolution: {integrity: sha512-olP3sd1qOEe5dXTSaFvQG+02VdRXcdytWLAZsAq1PecU8uqQAhkrnbli7DagjtXKW/Bl7YJbUsa8MPcuc8LHEQ==}
@@ -9612,6 +9618,8 @@ snapshots:
   '@types/boom@7.3.5': {}
 
   '@types/catbox@10.0.9': {}
+
+  '@types/fhir@0.0.41': {}
 
   '@types/graceful-fs@4.1.9':
     dependencies:
