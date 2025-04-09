@@ -23,11 +23,11 @@ export default function UserProfilePage() {
             if (medication.entry) {
               const activeMeds = medication.entry
                 .filter(
-                  (entry) =>
+                  (entry: { resource: { medicationCodeableConcept: { text: any; }; status: string; }; }) =>
                     entry.resource?.medicationCodeableConcept?.text &&
                     entry.resource?.status === "active" //Only keep active medications
                 )
-                .map((entry) => entry.resource.medicationCodeableConcept.text);
+                .map((entry: { resource: { medicationCodeableConcept: { text: any; }; }; }) => entry.resource.medicationCodeableConcept.text);
             
               setMedications(activeMeds);
               setPatientData(JSON.stringify(activeMeds, null, 2)); //Display only active medications
