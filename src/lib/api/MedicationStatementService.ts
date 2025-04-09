@@ -43,25 +43,28 @@ export const useMedicationStatement = (client: Client | null) => {
 /**
  * 
  * @param medication medicationRequest.medication object
- * @param derivedFrom medicationRequest object reference
+ * @param derivedFrom medicationRequest object
  * @returns medicationStatement object
  */
 export const createMedicationStatement = async (client: Client, medication, derivedFrom) => {
     const medicationStatementBody = {
         resourceType: 'MedicationStatement',
         status: 'Recorded',
-        medicationCodeableConcept: {
-            coding: [
-                {
-                    system: 'http://www.nlm.nih.gov/research/umls/rxnorm',
-                    code: medication.code,
-                    display: medication.display
-                }
-            ]
-        },
+        medication: [
+            {
+                concept: medication.medication.concept,
+                reference: medication.medication.reference
+            }
+        ],
+        subject: medication.subject,
         derivedFrom: [
             {
-                reference: derivedFrom
+                reference: [
+                    {
+                        reference: ['MedicationRequest', derivedFrom.id].join('/'),
+                        type: 'MedicationRequest'
+                    }
+                ]
             }
         ],
         note: [
@@ -72,12 +75,10 @@ export const createMedicationStatement = async (client: Client, medication, deri
     }
     try {
         const response = await client.create({ medicationStatement: medicationStatementBody })
+        console.log(response)
         return response
     } catch (error) {
         throw new Error(`Failed to add Medication Statement: ${error.message}`)
     }
 }
 
-/**
- * TODO: Create a function to add notes to the medication statement corresponding to adherence reports from the patient
-*/

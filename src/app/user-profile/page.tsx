@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { title } from "@/components/primitives";
 import { writeFileSync } from 'fs';
+import { useMedication } from "@Lib/api/MedicationService";
 
 export default function UserProfilePage() {
   const [patientData, setPatientData] = useState<string>(
@@ -17,22 +18,18 @@ export default function UserProfilePage() {
         .ready()
         .then((client) => {
           //get patient medication 
-          client.request("MedicationRequest").then((medication) => {
-            console.log("Medication data:", medication);
-            // Update the screen with list of active medications
-            if (medication.entry) {
-              const activeMeds = medication.entry
-                .filter(
-                  (entry) =>
-                    entry.resource?.medicationCodeableConcept?.text &&
-                    entry.resource?.status === "active" //Only keep active medications
-                )
-                .map((entry) => entry.resource.medicationCodeableConcept.text);
-            
-              setMedications(activeMeds);
-              setPatientData(JSON.stringify(activeMeds, null, 2)); //Display only active medications
-            }
-          });
+          const {medication, error, loading} = useMedication(client)
+          if (error) {
+            console.error("Error fetching medications:", error);
+            setPatientData("Error fetching medications.");
+          } else if (loading) {
+            console.log("Loading medications...");
+          } else {
+            // Process and display the medication data
+            const medicationList = medication?.entry?.map((entry) => entry.resource.code.text) || [];
+            setMedications(medicationList);
+          }
+          //client.request("MedicationRequest").then((medication) => {});
         })
         .catch((error) => {
           console.error("Error initializing FHIR client:", error);
