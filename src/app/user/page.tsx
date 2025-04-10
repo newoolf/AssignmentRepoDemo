@@ -8,9 +8,13 @@ import Image from'next/image'
 
 
 export default function UserProfilePage() {
-	const { client, isLoading } = useFhirClient()
+  const [patientData, setPatientData] = useState<string>(
+    "Patient data will be displayed here after login."
+  );
+  const [medications, setMedications] = useState<string[]>(["Entry 1", "Entry 2"]);
+  const [fhirClient, setFhirClient] = useState<any>(null);
 
-	const { patient, error, loading } = usePatient(client)
+  const { medication, error, loading } = useMedication(fhirClient);
 
 
   useEffect(() => {
@@ -67,6 +71,7 @@ export default function UserProfilePage() {
 		setMedications(medicationList);
   
 	}
+  }, [medication, error, loading]);
 
   const fullName=''
   const dob=''
