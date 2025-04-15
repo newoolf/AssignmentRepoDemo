@@ -60,14 +60,14 @@ export default function UserProfilePage() {
             medicationList.push(displayName);
           }
   
-          setMedications(medicationList); // ✅ Update state only after fetch is complete
+          setMedications(medicationList); // Update state only after fetch is complete
         } catch (err) {
           console.error("Error fetching medication data:", err);
           setMedications(["Error loading medications"]);
         }
       };
   
-      medicationImport(); // ✅ Awaiting happens inside here now
+      medicationImport(); // Awaiting happens inside here now
     }
   }, [medication]);
    [medication, error, loading];
