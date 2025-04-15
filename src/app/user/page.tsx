@@ -77,11 +77,11 @@ export default function UserProfilePage() {
   const patient_id =''
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-start py-10 px-4">
+    <div className="min-h-screen flex flex-col items-center justify-start py-10 px-4">
       <div className="flex items-center space-x-4 mb-6">
       <p className={title()}>
-        <span className="text-black">Login</span>{' '}
-        <span className="text-green-500"> SUCCESSFUL!</span>
+        <span className={title()}>Login</span>{' '}
+        <span className="text-success"> SUCCESSFUL!</span>
 
         </p>
         <Image
@@ -96,7 +96,7 @@ export default function UserProfilePage() {
       
        
       {/* Display patient data */}
-    <div className="bg-white rounded-2xl shadow-lg p-6 w-full max-w-xl mb-6">
+    <div className="bg-foreground rounded-2xl shadow-lg p-6 w-full max-w-xl mb-6">
        <p className="text-black ${subtitle()}text-2xl font-bold mt-4"> Patient's Information:</p>
         <div className="text-gray-700 mb-1 space-y-1">
           <p><span className="font-medium">Name:</span> {fullName}</p>
@@ -106,8 +106,8 @@ export default function UserProfilePage() {
       </div>
 
       {/* <div className="bg-white p-4 rounded-xl shadow-md mt-2 h-999"> */}
-      <div className="bg-white rounded-2xl shadow-lg p-6 w-full max-w-xl">
-        <p className="text-xl font-bold text-black mb-4">Patient's Medications:</p>
+      <div className="bg-foreground rounded-2xl shadow-lg p-6 w-full max-w-xl">
+        <p className="text-xl font-bold mb-4">Patient's Medications:</p>
    
         
         <ul className="list-disc pl-4 space-y-2 text-gray-700">
