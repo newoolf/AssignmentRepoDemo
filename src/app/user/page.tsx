@@ -11,7 +11,7 @@ export default function UserProfilePage() {
   const [patientData, setPatientData] = useState<string>(
     "Patient data will be displayed here after login."
   );
-  const [medications, setMedications] = useState<string[]>(["Entry 1", "Entry 2"]);
+  const [medications, setMedications] = useState<string[]>([]);
   const [fhirClient, setFhirClient] = useState<any>(null);
 
   const { medication, error, loading } = useMedication(fhirClient);
@@ -45,33 +45,32 @@ export default function UserProfilePage() {
   */
 
   useEffect(() => {
-    // Optionally handle patient data
-	console.log("THE INSANE WILL SURVIVE");
     if (medication) {
-		console.log("I AM GOING INSANE");
-      // Set patient data when it's loaded (example of how you might display patient data)
-		console.log("full json", medication)
-		const medicationList = [];
-		const medicationListURL = medication.entry.map((entry) => entry.fullUrl)
-		console.log("Medication List: ", medicationListURL);
-		const medicationImport = async () => {
-			for (const entry of medicationListURL) {
-				console.log("Medication Entry: ", entry);
-				const medicationStatement = await fetch(entry).then((medication) => {
-					return medication.json();
-				})
-				.then((medication) => {
-					console.log("Medication Statement: ", medication);
-					medicationList.push(medication.medicationCodeableConcept.coding[0].display);
-				})
-			}
-		}
-		medicationImport();
-		console.log("Medication List after import: ", medicationList);
-		setMedications(medicationList);
+      const medicationImport = async () => {
+        const medicationList: string[] = [];
   
-	}
-  }, [medication, error, loading]);
+        try {
+          const medicationListURL = medication.entry?.map((entry) => entry.fullUrl) || [];
+  
+          for (const entry of medicationListURL) {
+            const res = await fetch(entry);
+            const data = await res.json();
+            const displayName =
+              data?.medicationCodeableConcept?.coding?.[0]?.display || "Unknown Medication";
+            medicationList.push(displayName);
+          }
+  
+          setMedications(medicationList); // ✅ Update state only after fetch is complete
+        } catch (err) {
+          console.error("Error fetching medication data:", err);
+          setMedications(["Error loading medications"]);
+        }
+      };
+  
+      medicationImport(); // ✅ Awaiting happens inside here now
+    }
+  }, [medication]);
+   [medication, error, loading];
 
   const fullName=''
   const dob=''
@@ -112,6 +111,7 @@ export default function UserProfilePage() {
    
         
         <ul className="list-disc pl-4 space-y-2 text-gray-700">
+          
           
           {medications.map((med,index) => (
             <li key={index}>{med}</li>
