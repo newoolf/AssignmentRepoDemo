@@ -11,7 +11,7 @@ export default function UserProfilePage() {
   const [patientData, setPatientData] = useState<string>(
     "Patient data will be displayed here after login."
   );
-  const [medications, setMedications] = useState<string[]>(["Entry 1", "Entry 2"]);
+  const [medications, setMedications] = useState<string[]>([]);
   const [fhirClient, setFhirClient] = useState<any>(null);
 
   const { medication, error, loading } = useMedication(fhirClient);
@@ -45,44 +45,43 @@ export default function UserProfilePage() {
   */
 
   useEffect(() => {
-    // Optionally handle patient data
-	console.log("THE INSANE WILL SURVIVE");
     if (medication) {
-		console.log("I AM GOING INSANE");
-      // Set patient data when it's loaded (example of how you might display patient data)
-		console.log("full json", medication)
-		const medicationList = [];
-		const medicationListURL = medication.entry.map((entry) => entry.fullUrl)
-		console.log("Medication List: ", medicationListURL);
-		const medicationImport = async () => {
-			for (const entry of medicationListURL) {
-				console.log("Medication Entry: ", entry);
-				const medicationStatement = await fetch(entry).then((medication) => {
-					return medication.json();
-				})
-				.then((medication) => {
-					console.log("Medication Statement: ", medication);
-					medicationList.push(medication.medicationCodeableConcept.coding[0].display);
-				})
-			}
-		}
-		medicationImport();
-		console.log("Medication List after import: ", medicationList);
-		setMedications(medicationList);
+      const medicationImport = async () => {
+        const medicationList: string[] = [];
   
-	}
-  }, [medication, error, loading]);
+        try {
+          const medicationListURL = medication.entry?.map((entry) => entry.fullUrl) || [];
+  
+          for (const entry of medicationListURL) {
+            const res = await fetch(entry);
+            const data = await res.json();
+            const displayName =
+              data?.medicationCodeableConcept?.coding?.[0]?.display || "Unknown Medication";
+            medicationList.push(displayName);
+          }
+  
+          setMedications(medicationList); // Update state only after fetch is complete
+        } catch (err) {
+          console.error("Error fetching medication data:", err);
+          setMedications(["Error loading medications"]);
+        }
+      };
+  
+      medicationImport(); // Awaiting happens inside here now
+    }
+  }, [medication]);
+   [medication, error, loading];
 
   const fullName=''
   const dob=''
   const patient_id =''
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-start py-10 px-4">
+    <div className="min-h-screen flex flex-col items-center justify-start py-10 px-4">
       <div className="flex items-center space-x-4 mb-6">
       <p className={title()}>
-        <span className="text-black">Login</span>{' '}
-        <span className="text-green-500"> SUCCESSFUL!</span>
+        <span className={title()}>Login</span>{' '}
+        <span className="text-success"> SUCCESSFUL!</span>
 
         </p>
         <Image
@@ -97,7 +96,7 @@ export default function UserProfilePage() {
       
        
       {/* Display patient data */}
-    <div className="bg-white rounded-2xl shadow-lg p-6 w-full max-w-xl mb-6">
+    <div className="bg-foreground rounded-2xl shadow-lg p-6 w-full max-w-xl mb-6">
        <p className="text-black ${subtitle()}text-2xl font-bold mt-4"> Patient's Information:</p>
         <div className="text-gray-700 mb-1 space-y-1">
           <p><span className="font-medium">Name:</span> {fullName}</p>
@@ -107,11 +106,12 @@ export default function UserProfilePage() {
       </div>
 
       {/* <div className="bg-white p-4 rounded-xl shadow-md mt-2 h-999"> */}
-      <div className="bg-white rounded-2xl shadow-lg p-6 w-full max-w-xl">
-        <p className="text-xl font-bold text-black mb-4">Patient's Medications:</p>
+      <div className="bg-foreground rounded-2xl shadow-lg p-6 w-full max-w-xl">
+        <p className="text-xl font-bold mb-4">Patient's Medications:</p>
    
         
         <ul className="list-disc pl-4 space-y-2 text-gray-700">
+          
           
           {medications.map((med,index) => (
             <li key={index}>{med}</li>
