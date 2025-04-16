@@ -60,14 +60,14 @@ export default function UserProfilePage() {
             medicationList.push(displayName);
           }
   
-          setMedications(medicationList); // Update state only after fetch is complete
+          setMedications(medicationList); //Update  only after fetch is complete
         } catch (err) {
           console.error("Error fetching medication data:", err);
           setMedications(["Error loading medications"]);
         }
       };
   
-      medicationImport(); // Awaiting happens inside here now
+      medicationImport(); 
     }
   }, [medication]);
    [medication, error, loading];
@@ -77,11 +77,11 @@ export default function UserProfilePage() {
   const patient_id =''
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-start py-10 px-4">
+    <div className="bg-foreground min-h-screen flex flex-col items-center justify-start py-10 px-4">
       <div className="flex items-center space-x-4 mb-6">
-      <p className={title()}>
-        <span className={title()}>Login</span>{' '}
-        <span className="text-success"> SUCCESSFUL!</span>
+      <p className={`text-gray-700 ${title()}`}>
+        <span className={title()}>My</span>{' '}
+        <span className="text-success"> Medication Info:</span>
 
         </p>
         <Image
@@ -106,14 +106,15 @@ export default function UserProfilePage() {
       </div>
 
       {/* <div className="bg-white p-4 rounded-xl shadow-md mt-2 h-999"> */}
-      <div className="bg-foreground rounded-2xl shadow-lg p-6 w-full max-w-xl">
+      <div className="bg-foreground rounded-2xl shadow-lg p-3 w-full max-w-xl">
         <p className="text-xl font-bold mb-4">Patient's Medications:</p>
    
         
         <ul className="list-disc pl-4 space-y-2 text-gray-700">
-          
-          
-          {medications.map((med,index) => (
+          <p className="text-xl font-bold text-gray-700 mb-4">Medications:
+
+          </p>
+           {medications.map((med,index) => (
             <li key={index}>{med}</li>
           ))}
         </ul>

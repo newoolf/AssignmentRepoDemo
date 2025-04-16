@@ -13,7 +13,7 @@ export default function AuthPage() {
       // Note: The redirectUri should point to the page where you want to handle the response after login
       FHIR.oauth2.authorize({ clientId: clientID, 
                               'scope': scope, 
-                              'redirectUri': redirectUri,
+                              'redirectUri': "/dashboard",
                               iss: "https://launch.smarthealthit.org/v/r4/sim/WzMsIiIsIiIsIkFVVE8iLDAsMCwwLCIiLCIiLCIiLCIiLCIiLCIiLCIiLDAsMSwiIl0/fhir"
                             });
     };
