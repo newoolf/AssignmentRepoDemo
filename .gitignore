@@ -9,6 +9,7 @@
 /.pnp
 .pnp.js
 /src/node_modules
+/src/.next
 # testing
 /coverage
 
