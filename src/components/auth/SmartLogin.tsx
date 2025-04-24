@@ -6,6 +6,8 @@ import { Link } from '@heroui/link'
 import { Snippet } from '@heroui/snippet'
 import FHIR from 'fhirclient'
 import { useFhirClient } from '../FHIR/FHIRClientProvider'
+import {useEffect} from 'react'
+import{useRouter} from 'next/navigation'
 
 interface SmartLoginProps {
 	serverUrl?: string
@@ -15,15 +17,21 @@ interface SmartLoginProps {
 
 export const SmartLogin = ({ redirectUri }: SmartLoginProps) => {
 	const { client, isLoading, error } = useFhirClient()
+	const router = useRouter()
 
 	const handleLogin = () => {
 		FHIR.oauth2.authorize({
 			clientId: 'complication-monitor',
-			scope: 'openid fhirUser user/*.read',
-			iss: 'https://launch.smarthealthit.org/v/r4/sim/WzMsImQ0ZmIzYmJhLTczYTktNGI4Mi1hMGJjLTY3OGQ0N2YzODZiNCIsIiIsIkFVVE8iLDAsMCwwLCIiLCIiLCIiLCIiLCIiLCIiLCIiLDAsMSwiIl0/fhir',
-			redirectUri: redirectUri
+			scope: 'openid fhirUser user/*.read patient/*.read',
+			iss: 'https://launch.smarthealthit.org/v/r4/sim/WzMsIjU4YzU4MGNjLTliYzktNDU2OS1hNTFhLTc2ZGIwMDkzNTYyNywwZTYxYzNhZC1kMTFlLTQwODAtYTZhYS1jYWM4OWNhZTRlMzcsNzIwYjkxMTgtMzE1My00MGM4LWIxNjItY2Q5NjM1MDZiZTBlIiwiIiwiQVVUTyIsMCwwLDAsIiIsIiIsIiIsIiIsIiIsIiIsIiIsMCwxLCIiXQ/fhir',
+			redirectUri:'/dashboard'
 		})
 	}
+	useEffect(() => {
+		if(!isLoading && client) {
+			router.push(redirectUri)
+		}
+	}, [isLoading, client, redirectUri, router])
 
 	function LoginButton() {
 		if (!client || client == null) {
@@ -51,16 +59,16 @@ export const SmartLogin = ({ redirectUri }: SmartLoginProps) => {
 		}
 	}
 
-	if (!isLoading && client) {
-		return (
-			<div className="flex flex-col gap-3">
-				<span className={subtitle()}>Already Logged in.</span>
-				<Button as={Link} href={redirectUri}>
-					Redirect
-				</Button>
-			</div>
-		)
-	}
+	// if (!isLoading && client) {
+	// 	return (
+	// 		<div className="flex flex-col gap-3">
+	// 			<span className={subtitle()}>Already Logged in.</span>
+	// 			<Button as={Link} href={redirectUri}>
+	// 				Redirect
+	// 			</Button>
+	// 		</div>
+	// 	)
+	// }
 
 	return <LoginButton />
 }

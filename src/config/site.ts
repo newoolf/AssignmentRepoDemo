@@ -5,22 +5,42 @@ export const siteConfig = {
 	description: 'Make beautiful websites regardless of your design experience.',
 	navItems: [
 		{
-			label: 'Home',
-			href: '/'
+			label: 'Dashboard ',
+			href: '/dashboard'
 		},
 		{
 			label: 'Login',
 			href: '/login'
+		},
+		{
+			label: 'Add Medication',
+			href: '/addmedication'
+
+		},
+		{
+			label: 'SIGN OUT',
+			href: '/signout'
+
 		}
 	],
 	navMenuItems: [
 		{
-			label: 'Home',
-			href: '/'
+			label: 'Dashboard',
+			href: '/dashboard'
 		},
 		{
 			label: 'Login',
 			href: '/login'
+		},
+		{
+			label: 'Add Medication',
+			href: '/addmedication'
+
+		},
+		{
+			label: 'SIGN OUT',
+			href: '/signout'
+
 		}
 	],
 	links: {
