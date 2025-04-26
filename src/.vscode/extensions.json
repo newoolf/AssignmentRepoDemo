@@ -1,0 +1,12 @@
+{
+	"recommendations": [
+		"biomejs.biome",
+		"mblet.highlight-regex",
+		"oderwat.indent-rainbow",
+		"unjinjang.rest-api-client",
+		"jock.svg",
+		"bradlc.vscode-tailwindcss",
+		"austenc.tailwind-docs",
+		"bierner.emojisense"
+	]
+}
