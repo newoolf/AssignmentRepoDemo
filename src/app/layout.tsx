@@ -36,7 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 					<FhirClientProvider>
 						<Navbar />
 						<div className="relative flex flex-col h-screen">
-							<main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">{children}</main>
+							<main className="container mx-auto max-w-7xl pt-8 p-6 flex-grow">{children}</main>
 							<footer className="w-full flex items-center justify-center py-3">
 								<Link
 									isExternal
