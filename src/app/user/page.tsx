@@ -74,7 +74,6 @@ export default function UserProfilePage() {
   
         try {
           const medicationListURL = medication.entry?.map((entry) => entry.fullUrl) || [];
-  
           for (const entry of medicationListURL) {
             const res = await fetch(entry);
             const data = await res.json();

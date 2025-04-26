@@ -18,7 +18,7 @@ export const useMedication = (client: Client | null) => {
 		client
 			.patient.request(`MedicationRequest`)
 			.then((data) => {
-				if (mounted) setMedication(data)
+				if (mounted) setMedication(data as fhirclient.FHIR.Resource)
 			})
 			.catch((err) => {
 				if (mounted) setError(`Failed to fetch Medication: ${err.message}`)
