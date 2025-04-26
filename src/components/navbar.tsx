@@ -30,7 +30,7 @@ export const Navbar = () => {
 						<p className="font-bold text-inherit">COMPLIANCE</p>
 					</NextLink>
 				</NavbarBrand>
-				<ul className="hidden lg:flex gap-4 justify-start ml-2">
+				<ul className="hidden md:flex gap-4 justify-start ml-2">
 					{/* Map over the selected nav items */}
 					{currentNavItems.map((item) => (
 						<NavbarItem key={item.href}>
@@ -46,8 +46,8 @@ export const Navbar = () => {
 				</ul>
 			</NavbarContent>
 
-			<NavbarContent className="hidden sm:flex basis-1/5 sm:basis-full" justify="end">
-				<NavbarItem className="hidden sm:flex gap-2">
+			<NavbarContent className="hidden md:flex basis-1/5 sm:basis-full" justify="end">
+				<NavbarItem className="hidden md:flex gap-2">
 					<Button
 						isExternal
 						as={Link}
@@ -59,7 +59,7 @@ export const Navbar = () => {
 					</Button>
 				</NavbarItem>
 
-				<NavbarItem className="hidden sm:flex gap-2">
+				<NavbarItem className="hidden md:flex gap-2">
 					<ThemeSwitch />
 				</NavbarItem>
 
@@ -68,7 +68,7 @@ export const Navbar = () => {
 				</NavbarItem>
 			</NavbarContent>
 
-			<NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
+			<NavbarContent className="md:hidden basis-1 pl-4" justify="end">
 				<Link isExternal aria-label="Github" href={links.github}>
 					<GithubIcon className="text-default-500" />
 				</Link>
@@ -93,6 +93,9 @@ export const Navbar = () => {
 							</Link>
 						</NavbarMenuItem>
 					))}
+				</div>
+				<div className="m-4 flex flex-col h-full justify-end">
+					<SmartLogin redirectUri="/dashboard" />
 				</div>
 			</NavbarMenu>
 		</HeroUINavbar>
