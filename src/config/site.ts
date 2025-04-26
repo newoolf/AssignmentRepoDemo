@@ -3,26 +3,54 @@ export type SiteConfig = typeof siteConfig
 export const siteConfig = {
 	name: 'Next.js + HeroUI',
 	description: 'Make beautiful websites regardless of your design experience.',
-	navItems: [
-		{
-			label: 'Home',
-			href: '/'
-		},
-		{
-			label: 'Login',
-			href: '/login'
-		}
-	],
-	navMenuItems: [
-		{
-			label: 'Home',
-			href: '/'
-		},
-		{
-			label: 'Login',
-			href: '/login'
-		}
-	],
+	navItems: {
+		loggedOut : [
+			{
+				label: 'About',
+				href: '/about'
+			}
+		],
+		loggedIn : [
+			{
+				label: 'Dashboard ',
+				href: '/dashboard'
+			},
+			{
+				label: 'Medications',
+				href: '/addmedication'
+	
+			},
+			{
+				label: 'Profile',
+				href: '/user'
+	
+			},
+		]
+	},
+	navMenuItems: {
+		loggedOut : [
+			{
+				label: 'About',
+				href: '/about'
+			}
+		],
+		loggedIn : [
+			{
+				label: 'Dashboard ',
+				href: '/dashboard'
+			},
+			{
+				label: 'Medications',
+				href: '/addmedication'
+	
+			},
+			{
+				label: 'Profile',
+				href: '/user'
+	
+			},
+		]
+	},
 	links: {
 		github: 'https://github.com/newoolf/AssignmentRepoDemo'
 	}

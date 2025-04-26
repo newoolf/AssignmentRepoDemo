@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Client from 'fhirclient/lib/Client'
 import { fhirclient } from 'fhirclient/lib/types'
+import { Medication, Reference } from 'fhir/r5'
 
 
 /**
@@ -46,7 +47,7 @@ export const useMedicationStatement = (client: Client | null) => {
  * @param derivedFrom medicationRequest object reference
  * @returns medicationStatement object
  */
-export const createMedicationStatement = async (client: Client, medication, derivedFrom) => {
+export const createMedicationStatement = async (client: Client, medication: Medication, derivedFrom: Reference) => {
     const medicationStatementBody = {
         resourceType: 'MedicationStatement',
         status: 'Recorded',
@@ -55,7 +56,7 @@ export const createMedicationStatement = async (client: Client, medication, deri
                 {
                     system: 'http://www.nlm.nih.gov/research/umls/rxnorm',
                     code: medication.code,
-                    display: medication.display
+                    display: medication.identifier?.[0]?.value || medication.code
                 }
             ]
         },
@@ -66,14 +67,14 @@ export const createMedicationStatement = async (client: Client, medication, deri
         ],
         note: [
             {
-                text: `Patient created medication adherence record created for ${medication.display}`
+                text: `Patient created medication adherence record created for ${medication.identifier?.[0]?.value || medication.code} on ${new Date().toISOString()}`
             }
         ]
     }
     try {
         const response = await client.create({ medicationStatement: medicationStatementBody })
         return response
-    } catch (error) {
+    } catch (error: any) {
         throw new Error(`Failed to add Medication Statement: ${error.message}`)
     }
 }
