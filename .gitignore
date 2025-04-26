@@ -1,42 +1,175 @@
-/Sprint 1
-/Sprint 2
-/Sprint 3
-
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
-/src/node_modules
-/src/.next
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
+!.vscode/*.code-snippets
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/settings.json
+!.vscode/tasks.json
+._*
+.apdisk
+.AppleDB
+.AppleDesktop
+.AppleDouble
+.cache
+.cache
+.cache/
+.com.apple.timemachine.donotpresent
+.directory
+.DocumentRevisions-V100
+.docusaurus
 .DS_Store
+.DS_Store
+.dynamodb/
+.env
+.env.development.local
+.env.local
+.env.production.local
+.env.test.local
+.env*.local
+.eslintcache
+.fseventsd
+.fuse_hidden*
+.fusebox/
+.grunt
+.history/
+.idea_modules/
+.idea/**/aws.xml
+.idea/**/contentModel.xml
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/dataSources/
+.idea/**/dbnavigator.xml
+.idea/**/dictionaries
+.idea/**/dynamic.xml
+.idea/**/gradle.xml
+.idea/**/libraries
+.idea/**/mongoSettings.xml
+.idea/**/shelf
+.idea/**/sqlDataSources.xml
+.idea/**/tasks.xml
+.idea/**/uiDesigner.xml
+.idea/**/usage.statistics.xml
+.idea/**/workspace.xml
+.idea/caches/build_file_checksums.ser
+.idea/httpRequests
+.idea/replstate.xml
+.idea/sonarlint/
+.lock-wscript
+.LSOverride
+.next
+.nfs*
+.node_repl_history
+.npm
+.nuxt
+.nyc_output
+.parcel-cache
+.pnp.*
+.pnp.js
+.pnpm-debug.log*
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+.sass-cache/
+.serverless/
+.Spotlight-V100
+.stylelintcache
+.temp
+.TemporaryItems
+.tern-port
+.Trash-*
+.Trashes
+.vercel
+.VolumeIcon.icns
+.vscode-test
+.vscode/*
+.vuepress/dist
+.yarn-integrity
+.yarn/build-state.yml
+.yarn/cache
+.yarn/install-state.gz
+.yarn/unplugged
+[Dd]esktop.ini
+*.cab
+*.css.map
+*.iws
+*.lcov
+*.lnk
+*.log
+*.msi
+*.msix
+*.msm
+*.msp
 *.pem
-
-# debug
+*.pid
+*.pid.lock
+*.sass.map
+*.scss.map
+*.seed
+*.stackdump
+*.stTheme.cache
+*.sublime-workspace
+*.tgz
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.tsbuildinfo
+*.tsbuildinfo
+*.vsix
+*~
+/.next/
+/.pnp
+/build
+/coverage
+/node_modules
+/out/
+/src/.next
+/src/node_modules
+/src/node_modules
+/src/node_modules
+$RECYCLE.BIN/
+atlassian-ide-plugin.xml
+bh_unicode_properties.cache
+bower_components
+build/Release
+cmake-build-*/
+com_crashlytics_export_strings.xml
+coverage
+crashlytics-build.properties
+crashlytics.properties
+dist
+docs/_book
+ehthumbs_vista.db
+ehthumbs.db
+fabric.properties
+GitHub.sublime-settings
+Icon
+jspm_packages/
+lerna-debug.log*
+lib-cov
+Network Trash Folder
+next-env.d.ts
+node_modules/
 npm-debug.log*
+npm-debug.log*
+oscrypto-ca-bundle.crt
+out
+out/
+Package Control.ca-bundle
+Package Control.ca-certs/
+Package Control.ca-list
+Package Control.cache/
+Package Control.last-run
+Package Control.merged-ca-bundle
+Package Control.system-ca-bundle
+Package Control.user-ca-bundle
+pids
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+sftp-config-alt*.json
+sftp-config.json
+Temporary Items
+test/
+Thumbs.db
+Thumbs.db:encryptable
+web_modules/
+yarn-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# local env files
-.env*.local
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-/src/node_modules
-/src/node_modules
+yarn-error.log*
