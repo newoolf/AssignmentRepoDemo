@@ -1,13 +1,10 @@
 'use client'
 
-import { subtitle } from '@Components/primitives'
 import { Button } from '@heroui/button'
 import { Link } from '@heroui/link'
 import { Snippet } from '@heroui/snippet'
 import FHIR from 'fhirclient'
 import { useFhirClient } from '../FHIR/FHIRClientProvider'
-import {useEffect} from 'react'
-import{useRouter} from 'next/navigation'
 
 interface SmartLoginProps {
 	serverUrl?: string
@@ -16,25 +13,36 @@ interface SmartLoginProps {
 }
 
 export const SmartLogin = ({ redirectUri }: SmartLoginProps) => {
-	const { client, isLoading, error } = useFhirClient()
-	const router = useRouter()
+	const { client, isLoading, error, signOut } = useFhirClient()
 
 	const handleLogin = () => {
 		FHIR.oauth2.authorize({
 			clientId: 'complication-monitor',
 			scope: 'openid fhirUser user/*.read patient/*.read',
 			iss: 'https://launch.smarthealthit.org/v/r4/sim/WzMsIjU4YzU4MGNjLTliYzktNDU2OS1hNTFhLTc2ZGIwMDkzNTYyNywwZTYxYzNhZC1kMTFlLTQwODAtYTZhYS1jYWM4OWNhZTRlMzcsNzIwYjkxMTgtMzE1My00MGM4LWIxNjItY2Q5NjM1MDZiZTBlIiwiIiwiQVVUTyIsMCwwLDAsIiIsIiIsIiIsIiIsIiIsIiIsIiIsMCwxLCIiXQ/fhir',
-			redirectUri:'/dashboard'
+			redirectUri: redirectUri
 		})
 	}
-	useEffect(() => {
-		if(!isLoading && client) {
-			router.push(redirectUri)
-		}
-	}, [isLoading, client, redirectUri, router])
 
-	function LoginButton() {
-		if (!client || client == null) {
+	function AuthDisplay() {
+
+		if (isLoading && client != null) {
+			return (
+				<Button color="secondary" radius="md" disabled isLoading>
+					Loading...
+				</Button>
+			)
+		}
+
+		if (error && client != null) {
+			return (
+				<Snippet color="warning" hideCopyButton symbol="ERROR:">
+					{`Login Error: ${error.message}`}
+				</Snippet>
+			)
+		}
+
+		if (client == null) {
 			return (
 				<Button onPress={handleLogin} color="primary" radius="md">
 					Login with Smart
@@ -42,33 +50,20 @@ export const SmartLogin = ({ redirectUri }: SmartLoginProps) => {
 			)
 		}
 
-		if (isLoading) {
-			return (
-				<Button color="secondary" radius="md" disabled>
-					Loading...
-				</Button>
-			)
-		}
-
-		if (error) {
-			return (
-				<Snippet color="warning" hideCopyButton symbol="ERROR:">
-					{error.message}
-				</Snippet>
-			)
-		}
+		// If logged in (client exists) -> Show Sign Out
+		return (
+			<Button
+				as={Link}
+				onPress={signOut}
+				href={'/'}
+				color="warning"
+				variant="flat"
+				radius="md"
+			>
+				Sign Out
+			</Button>
+		)
 	}
 
-	// if (!isLoading && client) {
-	// 	return (
-	// 		<div className="flex flex-col gap-3">
-	// 			<span className={subtitle()}>Already Logged in.</span>
-	// 			<Button as={Link} href={redirectUri}>
-	// 				Redirect
-	// 			</Button>
-	// 		</div>
-	// 	)
-	// }
-
-	return <LoginButton />
+	return <AuthDisplay />
 }
