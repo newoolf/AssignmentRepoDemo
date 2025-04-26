@@ -1,6 +1,7 @@
 // lib/firebase.ts
 import { initializeApp } from "firebase/app";
 import { getAnalytics, isSupported } from "firebase/analytics";
+import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBr-...",
@@ -9,7 +10,8 @@ const firebaseConfig = {
   storageBucket: "medicationadherencesystem.appspot.com",
   messagingSenderId: "642660533844",
   appId: "1:642660533844:web:90d4e4c8be078c16e14fc1",
-  measurementId: "G-9GDEBRD0CL"
+  measurementId: "G-9GDEBRD0CL",
+  databaseURL: "https://medicationadherencesystem-default-rtdb.firebaseio.com/"
 };
 
 // Initialize Firebase
