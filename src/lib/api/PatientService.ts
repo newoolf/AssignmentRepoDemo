@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import Client from 'fhirclient/lib/Client'
-import { fhirclient } from 'fhirclient/lib/types'
+import type Client from 'fhirclient/lib/Client'
+import type { fhirclient } from 'fhirclient/lib/types'
 
 export const usePatient = (client: Client | null) => {
 	const [patient, setPatient] = useState<fhirclient.FHIR.Patient | null>(null)
@@ -16,7 +16,7 @@ export const usePatient = (client: Client | null) => {
 		let mounted = true
 		setLoading(true)
 		client
-			.request(client.user.fhirUser)
+			.request(client.user.fhirUser as string)
 			.then((data) => {
 				if (mounted) setPatient(data)
 			})

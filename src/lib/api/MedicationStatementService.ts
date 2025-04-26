@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import Client from 'fhirclient/lib/Client'
-import { fhirclient } from 'fhirclient/lib/types'
-import { Medication, Reference } from 'fhir/r5'
+import type Client from 'fhirclient/lib/Client'
+import type { fhirclient } from 'fhirclient/lib/types'
+import type { Medication, Reference } from 'fhir/r5'
 
 
 /**
@@ -23,7 +23,7 @@ export const useMedicationStatement = (client: Client | null) => {
 		let mounted = true
 		setLoading(true)
 		client
-			.request(`MedicationStatement`)
+			.request(`MedicationStatement/${client.patient.id}`)
 			.then((data) => {
 				if (mounted) setMedicationStatement(data)
 			})
@@ -74,8 +74,8 @@ export const createMedicationStatement = async (client: Client, medication: Medi
     try {
         const response = await client.create({ medicationStatement: medicationStatementBody })
         return response
-    } catch (error: any) {
-        throw new Error(`Failed to add Medication Statement: ${error.message}`)
+    } catch (error) {
+        throw new Error("Failed to add Medication Statement")
     }
 }
 

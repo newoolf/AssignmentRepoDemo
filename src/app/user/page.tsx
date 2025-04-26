@@ -1,10 +1,14 @@
 "use client";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { title } from "@/components/primitives";
 import { useMedication } from "@Lib/api/MedicationService";
+import { useAddPatient } from "@Lib/api/DatabaseService";
 import { usePatient } from "@Lib/api/PatientService";
 import { subtitle } from "@/components/primitives";
 import Image from'next/image'
+// biome-ignore lint/style/useImportType: <explanation>
+import { fhirclient } from "fhirclient/lib/types";
+import type Client from "fhirclient/lib/Client";
 
 
 /**
@@ -50,12 +54,13 @@ import Image from'next/image'
  */
 export default function UserProfilePage() {
   const [medications, setMedications] = useState<string[]>([]);
-  const [fhirClient, setFhirClient] = useState<any>(null);
+  const [fhirClient, setFhirClient] = useState<Client | null>(null);
   const { medication, error, loading } = useMedication(fhirClient);
   const { patient, error: patientError, loading: patientLoading } = usePatient(fhirClient);
   const [fullName, setFullName] = useState<string>('');
   const [patient_id, setPatientId] = useState<string>('');
-  
+  const [patientEmail, setPatientEmail] = useState<string>('Unknown Email');
+  const { addPatientToDB } = useAddPatient();
 
   useEffect(() => {
     // Dynamically load the FHIR client library and set up client
@@ -73,7 +78,7 @@ export default function UserProfilePage() {
         const medicationList: string[] = [];
   
         try {
-          const medicationListURL = medication.entry?.map((entry) => entry.fullUrl) || [];
+          const medicationListURL = medication.entry?.map((entry: fhirclient.FHIR.BundleEntry) => entry.fullUrl) || [];
           for (const entry of medicationListURL) {
             const res = await fetch(entry);
             const data = await res.json();
@@ -114,7 +119,10 @@ export default function UserProfilePage() {
     }
   }, [patient]);
 
-  
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPatientEmail(e.target.value);
+  };
 
   return (
     <div className="bg-foreground min-h-screen flex flex-col items-center justify-start py-10 px-4">
@@ -141,6 +149,14 @@ export default function UserProfilePage() {
         <div className="text-gray-700 mb-1 space-y-1">
           <p><span className="font-medium">Name:</span> {fullName}</p>
           <p><span className="font-medium">Patient ID:</span> {patient_id}</p>
+          <p className="text-xl font-bold mb-4">Enter Email:</p>
+          <input
+            type="email"
+            value={patientEmail}
+            onChange={handleEmailChange}
+            placeholder="Enter patient's email"
+            className="w-full p-2 border border-gray-300 rounded-md"
+          />
         </div>
       </div>
 
@@ -148,13 +164,19 @@ export default function UserProfilePage() {
       <div className="bg-foreground rounded-2xl shadow-lg p-3 w-full max-w-xl">
         <p className="text-xl font-bold mb-4">Patient's Medications:</p>
    
-        
+        <button
+          type="button"
+          className="mt-6 bg-green-600 text-white px-6 py-3 rounded-md text-lg font-medium hover:bg-green-700 transition"
+          onClick={() => addPatientToDB(patient_id, fullName, patientEmail, medication as fhirclient.FHIR.Bundle)}
+        >
+          Add medications to notification list:
+        </button>
         <ul className="list-disc pl-4 space-y-2 text-gray-700">
-          <p className="text-xl font-bold text-gray-700 mb-4">Medications:
+          <p className="text-xl font-bold text-gray-700 mb-4">
 
           </p>
-           {medications.map((med,index) => (
-            <li key={index}>{med}</li>
+           {medications.map((med) => (
+            <li key={med}>{med}</li>
           ))}
         </ul>
       </div>
