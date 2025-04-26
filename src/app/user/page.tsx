@@ -48,6 +48,47 @@ import Image from 'next/image'
  *
  * @returns A React component that renders the user's profile and medication information.
  */
+/**
+ * UserProfilePage Component
+ *
+ * This component displays a user's profile information, including their name, date of birth, 
+ * patient ID, and a list of their medications. It uses the FHIR client library to fetch 
+ * patient and medication data from a FHIR server.
+ *
+ * ## Features:
+ * - Dynamically loads the FHIR client library and initializes the client.
+ * - Fetches and displays patient information such as name, date of birth, and ID.
+ * - Fetches and displays a list of medications associated with the patient.
+ * - Handles loading states and errors gracefully.
+ *
+ * ## State Variables:
+ * - `medications`: An array of medication names fetched from the FHIR server.
+ * - `fhirClient`: The initialized FHIR client instance.
+ * - `fullName`: The patient's full name.
+ * - `dob`: The patient's date of birth.
+ * - `patient_id`: The patient's unique ID.
+ *
+ * ## Hooks:
+ * - `useEffect`: 
+ *   - Initializes the FHIR client on component mount.
+ *   - Fetches and processes medication data when the `medication` object changes.
+ *   - Fetches and processes patient data when the `patient` object changes.
+ *
+ * ## Dependencies:
+ * - `useMedication`: Custom hook to fetch medication data from the FHIR server.
+ * - `usePatient`: Custom hook to fetch patient data from the FHIR server.
+ *
+ * ## UI:
+ * - Displays patient information in a styled card.
+ * - Displays a list of medications in a bulleted list.
+ * - Includes an image of a pill bottle for visual context.
+ *
+ * ## Error Handling:
+ * - Displays fallback text if patient or medication data cannot be loaded.
+ * - Logs errors to the console for debugging purposes.
+ *
+ * @returns A React component that renders the user's profile and medication information.
+ */
 export default function UserProfilePage() {
   const [medications, setMedications] = useState<string[]>([]);
   const [fhirClient, setFhirClient] = useState<any>(null);
