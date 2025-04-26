@@ -16,7 +16,7 @@ export const usePatient = (client: Client | null) => {
 		let mounted = true
 		setLoading(true)
 		client
-			.request(`Patient`)
+			.request(client.user.fhirUser)
 			.then((data) => {
 				if (mounted) setPatient(data)
 			})

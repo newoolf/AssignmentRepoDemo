@@ -3,7 +3,7 @@ import Client from 'fhirclient/lib/Client'
 import { fhirclient } from 'fhirclient/lib/types'
 
 export const useMedication = (client: Client | null) => {
-	const [medication, setMedication] = useState<fhirclient.FHIR.Bundle | null>(null)
+	const [medication, setMedication] = useState<fhirclient.FHIR.Resource | null>(null)
 	const [error, setError] = useState<string | null>(null)
 	const [loading, setLoading] = useState(!!client)
 
@@ -16,7 +16,7 @@ export const useMedication = (client: Client | null) => {
 		let mounted = true
 		setLoading(true)
 		client
-			.request(`MedicationRequest`)
+			.patient.request(`MedicationRequest`)
 			.then((data) => {
 				if (mounted) setMedication(data)
 			})

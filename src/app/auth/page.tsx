@@ -8,7 +8,7 @@ export default function AuthPage() {
     const loadFHIRClient = async () => {
       const FHIR = await import("fhirclient");
       const clientID = "my_web_app";
-      const scope = "openid fhirUser user/*.read"
+      const scope = "patient/*.cruds launch/patient openid fhirUser online_access";
       const redirectUri = "/user-profile"
       // Note: The redirectUri should point to the page where you want to handle the response after login
       FHIR.oauth2.authorize({ clientId: clientID, 
