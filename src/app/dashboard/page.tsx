@@ -17,7 +17,7 @@ export default function DashboardPage() {
   const [patientPhone, setPhone] = useState<string>('')
   const [dob, setDOB] = useState<string>('')
   //const [gp, setGP] = useState<string>('')
-  const [gpOrg, setGPOrg] = useState<string>('')
+  //const [gpOrg, setGPOrg] = useState<string>('')
 
   // TODO: fix with relevant info from FHIR
   const details = [
