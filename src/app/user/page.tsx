@@ -1,5 +1,6 @@
 "use client";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import Image from "next/image";
 import { title } from "@/components/primitives";
 import { useMedication } from "@Lib/api/MedicationService";
 import { useAddPatient } from "@Lib/api/DatabaseService";
