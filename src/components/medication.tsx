@@ -16,17 +16,16 @@ const Medication: React.FC<MedicationProps> = ({ medication, date }) => {
   const [selectedKey, setSelectedKey] = useState<string>(defaultKey)
   const dateString = date.toDate(getLocalTimeZone()).toLocaleDateString()
 
-  // Add function to update medication status
   const updateMedicationStatus = (status: MedicationAction) => {
     // This would call an API to update the medication status
     // or update local storage to track medication adherence
+    // biome-ignore lint/suspicious/noConsole: <explanation>
     console.log(`Updating medication ${medication.name} to ${status} on ${dateString}`)
 
-    // Example of how you might track this locally
+    // TODO: Acctually implement this
     const key = `med-${medication.id}-${dateString}`
     localStorage.setItem(key, status)
 
-    // Update UI state
     setSelectedKey(status)
   }
 
@@ -44,18 +43,14 @@ const Medication: React.FC<MedicationProps> = ({ medication, date }) => {
           }}
         >
           <Tab key="taken" title="Taken">
-            <div className="p-2">
-              <p>
-                Took {medication.name} {medication.dose} on {dateString}
-              </p>
+            <div className="py-2">
+              <p>Took on {dateString}</p>
               {medication.instructions && <p className="text-sm mt-2">Instructions: {medication.instructions}</p>}
             </div>
           </Tab>
           <Tab key="skipped" title="Skipped">
-            <div className="p-2">
-              <p>
-                Skipped {medication.name} {medication.dose} on {dateString}
-              </p>
+            <div className="py-2">
+              <p>Skipped on {dateString}</p>
               {medication.instructions && <p className="text-sm mt-2">Instructions: {medication.instructions}</p>}
             </div>
           </Tab>

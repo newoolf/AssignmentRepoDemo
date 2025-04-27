@@ -18,6 +18,7 @@ const MedicationManagementCard: React.FC = () => {
           <div className="w-full flex-1">
             <Calendar
               classNames={{ headerWrapper: 'bg-content2', gridHeader: 'bg-content2' }}
+              //@ts-ignore
               value={date}
               onChange={setDate}
               onFocusChange={setDate}
