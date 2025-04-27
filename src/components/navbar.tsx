@@ -13,91 +13,85 @@ import { useFhirClient } from './FHIR/FHIRClientProvider'
 import { SmartLogin } from './auth/SmartLogin'
 
 export const Navbar = () => {
-	const { navItems, navMenuItems, links } = siteConfig
-	const { client, isLoading } = useFhirClient()
-	const isLoggedIn = !isLoading && client
+  const { navItems, navMenuItems, links } = siteConfig
+  const { client, isLoading } = useFhirClient()
+  const isLoggedIn = !isLoading && client
 
-	// Determine the correct set of nav items based on login status
-	const currentNavItems = isLoggedIn ? navItems.loggedIn : navItems.loggedOut
-	const currentNavMenuItems = isLoggedIn ? navMenuItems.loggedIn : navMenuItems.loggedOut
+  // Determine the correct set of nav items based on login status
+  const currentNavItems = isLoggedIn ? navItems.loggedIn : navItems.loggedOut
+  const currentNavMenuItems = isLoggedIn ? navMenuItems.loggedIn : navMenuItems.loggedOut
 
-	return (
-		<HeroUINavbar maxWidth="xl" position="sticky">
-			<NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-				<NavbarBrand as="li" className="gap-3 max-w-fit">
-					<NextLink className="flex justify-start items-center gap-1" href="/">
-						<Logo />
-						<p className="font-bold text-inherit">COMPLIANCE</p>
-					</NextLink>
-				</NavbarBrand>
-				<ul className="hidden md:flex gap-4 justify-start ml-2">
-					{/* Map over the selected nav items */}
-					{currentNavItems.map((item) => (
-						<NavbarItem key={item.href}>
-							<NextLink
-								className={clsx(linkStyles({ color: 'foreground' }), 'data-[active=true]:text-primary data-[active=true]:font-medium')}
-								color="foreground"
-								href={item.href}
-							>
-								{item.label}
-							</NextLink>
-						</NavbarItem>
-					))}
-				</ul>
-			</NavbarContent>
+  return (
+    <HeroUINavbar maxWidth="xl" position="sticky">
+      <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
+        <NavbarBrand as="li" className="gap-3 max-w-fit">
+          <NextLink className="flex justify-start items-center gap-1" href="/">
+            <Logo />
+            <p className="font-bold text-inherit">COMPLIANCE</p>
+          </NextLink>
+        </NavbarBrand>
+        <ul className="hidden md:flex gap-4 justify-start ml-2">
+          {/* Map over the selected nav items */}
+          {currentNavItems.map((item) => (
+            <NavbarItem key={item.href}>
+              <NextLink
+                className={clsx(linkStyles({ color: 'foreground' }), 'data-[active=true]:text-primary data-[active=true]:font-medium')}
+                color="foreground"
+                href={item.href}
+              >
+                {item.label}
+              </NextLink>
+            </NavbarItem>
+          ))}
+        </ul>
+      </NavbarContent>
 
-			<NavbarContent className="hidden md:flex basis-1/5 sm:basis-full" justify="end">
-				<NavbarItem className="hidden md:flex gap-2">
-					<Button
-						isExternal
-						as={Link}
-						className="w-auto h-auto bg-transparent rounded-lg flex items-center justify-center group-data-[selected=true]:bg-transparent !text-default-500 pt-px px-0 mx-0"
-						href={links.github}
-						isIconOnly
-					>
-						<GithubIcon className="text-primary" />
-					</Button>
-				</NavbarItem>
+      <NavbarContent className="hidden md:flex basis-1/5 sm:basis-full" justify="end">
+        <NavbarItem className="hidden md:flex gap-2">
+          <Button
+            isExternal
+            as={Link}
+            className="w-auto h-auto bg-transparent rounded-lg flex items-center justify-center group-data-[selected=true]:bg-transparent !text-default-500 pt-px px-0 mx-0"
+            href={links.github}
+            isIconOnly
+          >
+            <GithubIcon className="text-primary" />
+          </Button>
+        </NavbarItem>
 
-				<NavbarItem className="hidden md:flex gap-2">
-					<ThemeSwitch />
-				</NavbarItem>
+        <NavbarItem className="hidden md:flex gap-2">
+          <ThemeSwitch />
+        </NavbarItem>
 
-				<NavbarItem className="hidden md:flex">
-					<SmartLogin redirectUri="/dashboard" />
-				</NavbarItem>
-			</NavbarContent>
+        <NavbarItem className="hidden md:flex">
+          <SmartLogin redirectUri="/dashboard" />
+        </NavbarItem>
+      </NavbarContent>
 
-			<NavbarContent className="md:hidden basis-1 pl-4" justify="end">
-				<Link isExternal aria-label="Github" href={links.github}>
-					<GithubIcon className="text-default-500" />
-				</Link>
-				<ThemeSwitch />
-				<NavbarMenuToggle />
-			</NavbarContent>
+      <NavbarContent className="md:hidden basis-1 pl-4" justify="end">
+        <Link isExternal aria-label="Github" href={links.github}>
+          <GithubIcon className="text-default-500" />
+        </Link>
+        <ThemeSwitch />
+        <NavbarMenuToggle />
+      </NavbarContent>
 
-			<NavbarMenu>
-				<div className="mx-4 mt-2 flex flex-col gap-2">
-					{/* Map over the selected menu items */}
-					{currentNavMenuItems.map((item, index) => (
-						// Use item.href for the key if it's unique
-						<NavbarMenuItem key={item.href}>
-							<Link
-								// Consider simplifying this color logic or moving it to siteConfig
-								color={index === 2 ? 'primary' : index === currentNavMenuItems.length - 1 ? 'danger' : 'foreground'}
-								// Use item.href for the link destination
-								href={item.href}
-								size="lg"
-							>
-								{item.label}
-							</Link>
-						</NavbarMenuItem>
-					))}
-				</div>
-				<div className="m-4 flex flex-col h-full justify-end">
-					<SmartLogin redirectUri="/dashboard" />
-				</div>
-			</NavbarMenu>
-		</HeroUINavbar>
-	)
+      <NavbarMenu>
+        <div className="mx-4 mt-2 flex flex-col gap-2">
+          {/* Map over the selected menu items */}
+          {currentNavMenuItems.map((item, index) => (
+            // Use item.href for the key if it's unique
+            <NavbarMenuItem key={item.href}>
+              <Link color={index === 2 ? 'primary' : index === currentNavMenuItems.length - 1 ? 'danger' : 'foreground'} href={item.href} size="lg">
+                {item.label}
+              </Link>
+            </NavbarMenuItem>
+          ))}
+        </div>
+        <div className="m-4 flex flex-col h-full justify-end">
+          <SmartLogin redirectUri="/dashboard" />
+        </div>
+      </NavbarMenu>
+    </HeroUINavbar>
+  )
 }

@@ -29,7 +29,6 @@ export const useMedications = (client: Client | null, date?: DateValue) => {
 
     const fetchAndProcessMedications = async () => {
       try {
-        // First check if we have a valid patient context
         let patientId: string | null = null
 
         try {
@@ -135,8 +134,6 @@ function processMedicationData(
       }
 
       // Determine if medication was taken
-      // This would typically come from MedicationAdministration resources
-      // or your application's own tracking mechanism
       const taken = determineIfTaken(resource, administrationMap, date)
 
       // Get frequency information
@@ -162,16 +159,11 @@ function processMedicationData(
 
 // Determine if a medication was taken based on administration records
 function determineIfTaken(medicationRequest: any, administrationMap: Map<string, any>, date?: DateValue): boolean {
-  // If you have real administration data:
   const medicationRef = medicationRequest.medicationReference?.reference
   if (medicationRef && administrationMap.has(medicationRef)) {
     const admin = administrationMap.get(medicationRef)
     return admin.status === 'completed'
   }
-
-  // If tracking is in your app but not in FHIR, you could check local storage
-  // const localTrackingData = getLocalMedicationTracking(medicationRequest.id, date)
-  // if (localTrackingData) return localTrackingData.taken
 
   // Default fallback
   return false

@@ -90,7 +90,6 @@ export const SearchIcon = (props: IconSvgProps) => (
     <path d="M22 22L20 20" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
   </svg>
 )
-// Make sure these icons are defined
 
 export function PlusIcon(props) {
   return (
