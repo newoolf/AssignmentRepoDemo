@@ -1,6 +1,5 @@
 // lib/firebase.ts
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBzLZfEOQqDb0QpQdaUMDTZsc84B7a-5J4",

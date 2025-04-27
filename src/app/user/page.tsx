@@ -5,7 +5,6 @@ import { useMedication } from "@Lib/api/MedicationService";
 import { useAddPatient } from "@Lib/api/DatabaseService";
 import { usePatient } from "@Lib/api/PatientService";
 import { subtitle } from "@/components/primitives";
-import Image from'next/image'
 // biome-ignore lint/style/useImportType: <explanation>
 import { fhirclient } from "fhirclient/lib/types";
 import type Client from "fhirclient/lib/Client";
