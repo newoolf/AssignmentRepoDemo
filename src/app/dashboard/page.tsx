@@ -1,43 +1,13 @@
 'use client'
 
 import { useFhirClient } from '@/components/FHIR/FHIRClientProvider'
-import { UserIcon } from '@/components/icons'
-import MedicationManagementCard from '@Components/medication-management-card'
+import MedicationManagementCard from '@Components/medication/medication-management-card'
 import { usePatient } from '@Lib/api/PatientService'
-import { Avatar } from '@heroui/avatar'
 import { Card, CardBody } from '@heroui/card'
+import { Avatar } from '@heroui/avatar'
 import { Divider } from '@heroui/react'
-
-// Helper function to safely extract patient details
-const extractPatientDetails = (patient: any) => {
-  if (!patient)
-    return {
-      name: 'Unknown Name',
-      phone: 'Unknown Phone Number',
-      email: 'Unknown Email',
-      dob: 'Unknown Birth Date',
-      address: 'Unknown Location'
-    }
-
-  const name = patient.name?.[0]
-  const telecom = patient.telecom || []
-  const addresses = patient.address || []
-
-  return {
-    name: name ? `${name.given?.join(' ') || ''} ${name.family || ''}`.trim() : 'Unknown Name',
-    phone: telecom.find((t: any) => t.system === 'phone')?.value || 'Unknown Phone Number',
-    email: telecom.find((t: any) => t.system === 'email')?.value || 'Unknown Email',
-    dob: patient.birthDate || 'Unknown Birth Date',
-    address: addresses[0] ? formatAddress(addresses[0]) : 'Unknown Location'
-  }
-}
-
-// Helper to format address
-const formatAddress = (address: any) => {
-  const parts = [address.line?.join(', '), address.city, address.state, address.postalCode, address.country].filter(Boolean)
-
-  return parts.join(', ') || 'Unknown Location'
-}
+import { UserIcon } from '@/components/icons'
+import { extractPatientDetails } from '@Lib/helper/utility'
 
 export default function DashboardPage() {
   const { client, isLoading: clientLoading } = useFhirClient()
@@ -45,6 +15,7 @@ export default function DashboardPage() {
 
   const patientDetails = extractPatientDetails(patient)
 
+  // Define details
   const details = [
     { label: 'Phone Number', value: patientDetails.phone },
     { label: 'Email', value: patientDetails.email },
@@ -52,7 +23,7 @@ export default function DashboardPage() {
     { label: 'Location', value: patientDetails.address }
   ]
 
-  // Show loading state
+  // Show loading state //
   if (clientLoading || patientLoading) {
     return (
       <main className="space-y-12">
@@ -67,7 +38,7 @@ export default function DashboardPage() {
     )
   }
 
-  // Show error state
+  // Show error state //
   if (patientError) {
     return (
       <main className="space-y-12">

@@ -1,10 +1,10 @@
+import { MedicationData } from '@/types'
 import { DateValue, Tab, Tabs } from '@heroui/react'
 import { getLocalTimeZone } from '@internationalized/date'
 import { useState } from 'react'
-import type { MedicationItem } from '@Lib/api/MedicationService'
 
 type MedicationProps = {
-  medication: MedicationItem
+  medication: MedicationData
   key: number
   date: DateValue
 }
@@ -19,10 +19,9 @@ const Medication: React.FC<MedicationProps> = ({ medication, date }) => {
   const updateMedicationStatus = (status: MedicationAction) => {
     // This would call an API to update the medication status
     // or update local storage to track medication adherence
-    // biome-ignore lint/suspicious/noConsole: <explanation>
     console.log(`Updating medication ${medication.name} to ${status} on ${dateString}`)
 
-    // TODO: Acctually implement this
+    // Store in localStorage //
     const key = `med-${medication.id}-${dateString}`
     localStorage.setItem(key, status)
 
@@ -44,13 +43,17 @@ const Medication: React.FC<MedicationProps> = ({ medication, date }) => {
         >
           <Tab key="taken" title="Taken">
             <div className="py-2">
-              <p>Took on {dateString}</p>
+              <p>
+                Took {medication.name} {medication.dose} on {dateString}
+              </p>
               {medication.instructions && <p className="text-sm mt-2">Instructions: {medication.instructions}</p>}
             </div>
           </Tab>
           <Tab key="skipped" title="Skipped">
             <div className="py-2">
-              <p>Skipped on {dateString}</p>
+              <p>
+                Skipped {medication.name} {medication.dose} on {dateString}
+              </p>
               {medication.instructions && <p className="text-sm mt-2">Instructions: {medication.instructions}</p>}
             </div>
           </Tab>
