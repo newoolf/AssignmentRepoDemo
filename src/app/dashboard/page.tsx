@@ -4,6 +4,7 @@ import { Card, CardBody } from '@heroui/card'
 import { Avatar } from '@heroui/avatar'
 import { UserIcon } from '@/components/icons'
 import { Divider } from '@heroui/react'
+import MedicationManagementCard from '@Components/medication-management-card'
 
 export default function DashboardPage() {
   // TODO: get actual user data from FHIR
@@ -47,6 +48,7 @@ export default function DashboardPage() {
           </CardBody>
         </Card>
       </section>
+      <MedicationManagementCard />
     </main>
   )
 }
