@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react'
 import {send, setApiKey} from '@sendgrid/mail'
 
-export const useMail = (patientEmail: string, subjectLine: string, text: string) => {
+export const useMail = (patientEmail: string, subjectLine: string, htmlBody: string) => {
     const [error, setError] = useState<string | null>(null)
     const [response, setResponse] = useState<number | null>(null)
     useEffect(() => {
         setApiKey(process.env.SENDGRID_API_KEY || '')
         const msg = {
             to: patientEmail,
-            from: 'notifications@medicationadhenecedemo.xyz',
+            from: 'notifications@medicationadherencedemo.xyz',
             subject: subjectLine,
-            text: text
+            html: htmlBody
         }
         send(msg)
             .then(([response]) => {
